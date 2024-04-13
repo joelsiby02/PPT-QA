@@ -1,7 +1,3 @@
-Certainly! Here's a README file for your project:
-
----
-
 # Presentify
 
 Presentify is a tool designed to assist teachers in generating questions and answers based on student project presentations, particularly in the form of PDF files. It automatically generates a set of general and intermediate questions to facilitate discussions about the project content.
