@@ -13,12 +13,6 @@ from langchain_groq import ChatGroq
 
 load_dotenv()
 
-# GROQ_API_KEY = os.getenv('GROQ_API_KEY')
-COHERE_API_KEY = os.getenv('COHERE_API_KEY')
-GROQ_API_KEY = os.getenv('GROQ_API_KEY')
-
-manager_llm = ChatGroq(temperature=0.1, groq_api_key= GROQ_API_KEY, model_name="mixtral-8x7b-32768")
-
 # Function to process PDF and perform embedding
 def process_pdf_and_embedding(pdf_file_path, cohere_api_key):
     try:
@@ -47,12 +41,15 @@ def process_pdf_and_embedding(pdf_file_path, cohere_api_key):
         st.error(f"Error processing PDF: {str(e)}")
         return None, None, None
 
-def generate_q(pdf_file):
+def generate_q(pdf_file, cohere_api_key, groq_api_key):
     task = ProjectSelectionTask()
     agent = ProjectSelectionAgents()
 
     # Create Agents
     professor_agent = agent.teacher()
+
+    # Initialize ChatGroq with the provided GROQ API key
+    manager_llm = ChatGroq(temperature=0.1, groq_api_key=groq_api_key, model_name="mixtral-8x7b-32768")
 
     # Create Tasks
     professor_task = task.question_task(professor_agent, pdf_file)
@@ -81,14 +78,22 @@ def generate_q(pdf_file):
     # st.write("\n\n########################")
     # st.write("Results")
     # st.write("########################\n")
-    st.write("The Questions to be adreesed are:")
+    st.write("The Questions to be addressed are:")
     st.code(responce)
     st.write("\n\nquestions have been saved to", file_name)
-
 
 # Main Streamlit app
 def main():
     st.title("Presentation Helper")
+
+    # Sidebar with input boxes for API keys
+    st.sidebar.header("API Keys")
+    cohere_api_key = st.sidebar.text_input("Cohere API Key:", type='password')
+    groq_api_key = st.sidebar.text_input("GROQ API Key:", type='password')
+
+    # Submit button for API keys
+    if st.sidebar.button("Submit"):
+        st.info("Processing...")
 
     # File upload
     pdf_file = st.file_uploader("Upload a PDF file", type=["pdf"])
@@ -99,7 +104,7 @@ def main():
             f.write(pdf_file.getvalue())
 
         # Process PDF file and perform embedding
-        data, chunks, vector_db = process_pdf_and_embedding("temp.pdf", COHERE_API_KEY)
+        data, chunks, vector_db = process_pdf_and_embedding("temp.pdf", cohere_api_key)
 
         if data is not None:
             # Display processed data
@@ -108,7 +113,7 @@ def main():
             # st.write("Vector DB:", vector_db)
 
             # Generate questions
-            generate_q(pdf_file)
+            generate_q(pdf_file, cohere_api_key, groq_api_key)
 
 # Run the app
 if __name__ == "__main__":

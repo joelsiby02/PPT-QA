@@ -1,0 +1,27 @@
+General Questions:
+1. What are transformers in the context of machine learning?
+2. How do transformers differ from traditional sequential models like recurrent neural networks (RNNs) and long short-term memory networks (LSTMs)?
+3. What are some popular transformer architectures and their applications?
+4. How do transformers handle input data representation and attention mechanisms?
+5. What are some challenges and limitations of transformer models?
+
+General Answers:
+1. Transformers are models that process input data to transform it into a desired output format. They are widely used in natural language processing tasks such as translation, summarization, and sentiment analysis.
+2. Transformers process input data in parallel, while sequential models like RNNs and LSTMs process input data sequentially. This parallel processing in transformers allows for more efficient computation and better handling of long-range dependencies in the data.
+3. Some popular transformer architectures include BERT (Bidirectional Encoder Representations from Transformers) for language understanding tasks, GPT (Generative Pretrained Transformer) for language generation tasks, and ViT (Vision Transformer) for computer vision tasks.
+4. Transformers represent input data as tokens and use attention mechanisms to weigh the importance of each token when processing the data. This allows transformers to focus on relevant parts of the input data and generate more accurate outputs.
+5. Some challenges and limitations of transformer models include the need for large amounts of training data, the computational complexity of attention mechanisms, and the difficulty in interpreting the inner workings of transformers due to their complexity.
+
+Intermediate Questions:
+1. Can you explain the self-attention mechanism used in transformers and how it differs from traditional attention mechanisms?
+2. How do transformers handle positional encoding in their input data representation?
+3. How are transformer models trained and fine-tuned for specific tasks?
+4. How do transformers handle multi-modal data, such as text and images?
+5. What are some techniques to improve the efficiency and scalability of transformer models?
+
+Intermediate Answers:
+1. Self-attention in transformers is a mechanism that weighs the importance of each token in the input data relative to other tokens in the same input sequence. This differs from traditional attention mechanisms that weigh the importance of each input token relative to a single context or query vector.
+2. Transformers use positional encodings to inject information about the relative or absolute position of the tokens in the input data. This is necessary because transformers process input data in parallel and do not have an inherent notion of position or order.
+3. Transformer models are typically pre-trained on large amounts of general data and then fine-tuned on task-specific data. This two-stage training process allows transformers to leverage general knowledge from the pre-training phase and adapt to specific tasks in the fine-tuning phase.
+4. Transformers can be adapted to handle multi-modal data by using separate transformer encoders for each modality and then combining the encoded representations using a fusion mechanism, such as concatenation or multiplicative interaction.
+5. Some techniques to improve the efficiency and scalability of transformer models include sparse attention mechanisms, reformer models with locality-sensitive hashing, and Longformer models with sliding window attention.
